@@ -1,8 +1,16 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
 
-app = FastAPI(title="Sprint Tracker")
+from app.config import APP_VERSION
+
+app = FastAPI(title="Sprint Tracker", version=APP_VERSION)
+
+
+class HealthResponse(BaseModel):
+    status: str
+    version: str
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
-    return {"status": "ok"}
+def health() -> HealthResponse:
+    return HealthResponse(status="ok", version=APP_VERSION)
