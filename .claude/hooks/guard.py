@@ -14,6 +14,11 @@ RULES = [
         "Force push is blocked. Use a normal `git push`.",
     ),
     (
+        # Explicit push to main/master, including HEAD:main and refs/heads/main.
+        r"\bgit\s+push\b[^|;&]*[\s:/](main|master)(?=\s|$|[;&|])",
+        "Pushing to main/master is blocked. Push a feature branch and open a PR.",
+    ),
+    (
         # Only when used as a command (start of line or after ; & | ( `), not when
         # the word merely appears inside text such as a commit message.
         r"(?:^|[;&|(`])\s*(?:\w+=\S+\s+)*(?:sudo\s+)?"
